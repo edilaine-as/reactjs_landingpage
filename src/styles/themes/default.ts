@@ -2,7 +2,7 @@ export const defaultTheme = {
   colors: {
     'base-background': '#071422',
     'base-text': '#E1E1E6',
-    primary: '#8257E6',
+    primary: '#422F78',
     secondary: '#04D361',
   },
   fontSizes: {
@@ -12,5 +12,9 @@ export const defaultTheme = {
     titleS: '1.125rem',
     titleM: '1.25rem',
     titleL: '1.5rem',
+  },
+  fonts: {
+    body: "'Nunito', sans-serif",
+    heading: "'Oswald', sans-serif",
   },
 }
