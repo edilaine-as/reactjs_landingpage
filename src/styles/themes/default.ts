@@ -3,7 +3,7 @@ export const defaultTheme = {
     'base-background': '#071422',
     'base-text': '#E1E1E6',
     primary: '#422F78',
-    secondary: '#04D361',
+    secondary: '#8877A8',
   },
   fontSizes: {
     textXS: '0.75rem',
