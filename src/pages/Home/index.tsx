@@ -111,9 +111,8 @@ export function Home() {
             <h1>Prévia Grátis</h1>
             <p>
               Este não é apenas um livro, mas um guia completo para dominar
-              redes de forma rápida e sem complicações. Leia agora o primeiro
-              capítulo gratuito e veja como simplificamos conceitos complexos
-              para você.
+              redes de forma rápida e sem complicações. Leia agora a prévia
+              gratuita e veja como simplificamos conceitos complexos para você.
             </p>
 
             <Button type="button">Leia mais</Button>
