@@ -23,20 +23,103 @@ import {
   TopicsWrapper,
 } from './styles'
 import { Reader } from '@/components/Reader'
+import { useEffect, useRef } from 'react'
+
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export function Home() {
+  const titleIntroRef = useRef(null)
+  const descriptionIntroRef = useRef(null)
+  const buttonIntroRef = useRef(null)
+
+  const comment01Ref = useRef(null)
+  const comment02Ref = useRef(null)
+
+  useEffect(() => {
+    const titleIntro = titleIntroRef.current
+    const descriptionIntro = descriptionIntroRef.current
+    const buttonIntro = buttonIntroRef.current
+
+    const comment01 = comment01Ref.current
+    const comment02 = comment02Ref.current
+
+    const tl = gsap.timeline({ defaults: { duration: 1 } })
+
+    tl.fromTo(
+      titleIntro,
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        y: 0,
+      }
+    )
+      .fromTo(
+        descriptionIntro,
+        {
+          opacity: 0,
+          y: 100,
+        },
+        {
+          opacity: 1,
+          y: 0,
+        },
+        '-=0.75'
+      )
+      .fromTo(
+        buttonIntro,
+        {
+          opacity: 0,
+          y: 100,
+        },
+        {
+          opacity: 1,
+          y: 0,
+        },
+        '-=0.75'
+      )
+
+    gsap.fromTo(
+      [comment01, comment02],
+      {
+        opacity: 0,
+        rotateY: 180,
+      },
+      {
+        opacity: 1,
+        rotateY: 0,
+        duration: 1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: [comment01, comment02],
+          start: 'top 90%',
+          end: 'top 80%',
+          scrub: true, // Desliza conforme o scroll
+          // markers: true,
+        },
+      }
+    )
+  })
+
   return (
     <HomeContainer>
       <IntroContainer>
         <IntroWrapper>
           <img src="/images/intro.svg" alt="" />
           <div>
-            <h1>Redes TCP IP</h1>
-            <p>
+            <h1 ref={titleIntroRef}>Redes TCP IP</h1>
+            <p ref={descriptionIntroRef}>
               Descomplicando redes: aprenda tudo sobre TCP, IPv4, IPv6, portas e
               UDP de forma simples e objetiva.
             </p>
-            <Button type="button">Leia mais</Button>
+            <Button type="button" ref={buttonIntroRef}>
+              Leia mais
+            </Button>
           </div>
         </IntroWrapper>
       </IntroContainer>
@@ -125,12 +208,14 @@ export function Home() {
           <h1>O que os leitores dizem?</h1>
           <Readers>
             <Reader
+              ref={comment01Ref}
               name="Edilaine Santos"
               message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mi
           purus, semper vel auctor eget, dapibus ac dui. Quisque semper justo
           bibendum porta lobortis."
             />
             <Reader
+              ref={comment02Ref}
               name="Edilaine Santos"
               message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mi
           purus, semper vel auctor eget, dapibus ac dui. Quisque semper justo

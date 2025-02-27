@@ -13,4 +13,6 @@ export const ReaderContainer = styled.div`
         flex-direction: column;
         gap: 20px;
     }
+
+    perspective: 800px;
 `

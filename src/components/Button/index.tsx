@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import { ButtonContainer } from './styles'
 
 type ButtonType = 'button' | 'reset' | 'submit'
@@ -7,6 +8,12 @@ type ButtonProps = {
   type: ButtonType
 }
 
-export function Button({ children, type }: ButtonProps) {
-  return <ButtonContainer type={type}>{children}</ButtonContainer>
-}
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ children, type }, ref) => {
+    return (
+      <ButtonContainer type={type} ref={ref}>
+        {children}
+      </ButtonContainer>
+    )
+  }
+)
