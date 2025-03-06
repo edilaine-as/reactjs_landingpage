@@ -4,7 +4,7 @@ export const HomeContainer = styled.div``
 
 export const Container = styled.div`
     margin: 0 auto;
-    padding: 4rem 0;
+    padding: 6rem 0;
     max-width: 64rem;
 
     @media (max-width: 768px) {
@@ -42,7 +42,7 @@ export const TopicsWrapper = styled(Container)`
     h1{
         text-align: center;
         position: relative;
-        margin-bottom: 2rem;
+        margin-bottom: 4rem;
     }
 
     h1::before,
@@ -112,7 +112,7 @@ export const ReadersWrapper = styled(Container)`
     h1{
         text-align: center;
         position: relative;
-        margin-bottom: 2rem;
+        margin-bottom: 4rem;
     }
 
     h1::before,

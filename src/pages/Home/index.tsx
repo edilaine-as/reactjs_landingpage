@@ -11,10 +11,8 @@ import {
   IconContainer,
   IntroContainer,
   IntroWrapper,
-  NoteContainer,
   PreviewContainer,
   PreviewWrapper,
-  PriceContainer,
   Readers,
   ReadersContainer,
   ReadersWrapper,
@@ -35,19 +33,44 @@ export function Home() {
   const descriptionIntroRef = useRef(null)
   const buttonIntroRef = useRef(null)
 
+  const topicsRef = useRef(null)
+  const topic01Ref = useRef(null)
+  const topic02Ref = useRef(null)
+  const topic03Ref = useRef(null)
+  const topic04Ref = useRef(null)
+  const topic05Ref = useRef(null)
+
+  const previewImgRef = useRef(null)
+  const previewDivRef = useRef(null)
+
   const comment01Ref = useRef(null)
   const comment02Ref = useRef(null)
+
+  const titleReadersRef = useRef(null)
 
   useEffect(() => {
     const titleIntro = titleIntroRef.current
     const descriptionIntro = descriptionIntroRef.current
     const buttonIntro = buttonIntroRef.current
 
+    const topics = topicsRef.current
+    const topic01 = topic01Ref.current
+    const topic02 = topic02Ref.current
+    const topic03 = topic03Ref.current
+    const topic04 = topic04Ref.current
+    const topic05 = topic05Ref.current
+
     const comment01 = comment01Ref.current
     const comment02 = comment02Ref.current
 
+    const previewImg = previewImgRef.current
+    const previewDiv = previewDivRef.current
+
+    const titleReaders = titleReadersRef.current
+
     const tl = gsap.timeline({ defaults: { duration: 1 } })
 
+    // INTRO
     tl.fromTo(
       titleIntro,
       {
@@ -84,6 +107,150 @@ export function Home() {
         '-=0.75'
       )
 
+    // TOPICS
+    gsap.fromTo(
+      topics,
+      {
+        opacity: 0,
+        y: 100,
+        transform: 'translateZ(0)',
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: topics,
+          start: 'top 95%',
+          end: 'top 75%',
+          scrub: true,
+        },
+      }
+    )
+
+    gsap.fromTo(
+      [topic01, topic04],
+      {
+        opacity: 0,
+        x: -100,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: topic01,
+          start: 'top 95%',
+          end: 'top 75%',
+          scrub: true,
+        },
+      }
+    )
+
+    gsap.fromTo(
+      topic03,
+      {
+        opacity: 0,
+        x: 100,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: topic01,
+          start: 'top 95%',
+          end: 'top 75%',
+          scrub: true,
+        },
+      }
+    )
+
+    // PREVIEW
+    gsap.fromTo(
+      previewImg,
+      {
+        opacity: 0,
+        x: -170,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: previewDiv,
+          start: 'top 95%',
+          end: 'top 75%',
+          scrub: true,
+        },
+      }
+    )
+
+    gsap.fromTo(
+      previewDiv,
+      {
+        opacity: 0,
+        x: 100,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: previewDiv,
+          start: 'top 95%',
+          end: 'top 75%',
+          scrub: true,
+        },
+      }
+    )
+
+    gsap.fromTo(
+      [topic02, topic05],
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 2,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: topic01,
+          start: 'top 95%',
+          end: 'top 75%',
+          scrub: true,
+        },
+      }
+    )
+
+    // READERS
+    gsap.fromTo(
+      titleReaders,
+      {
+        opacity: 0,
+        y: 100,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: [titleReaders],
+          start: 'top 95%',
+          end: 'top 75%',
+          scrub: true, // Desliza conforme o scroll
+        },
+      }
+    )
+
     gsap.fromTo(
       [comment01, comment02],
       {
@@ -94,17 +261,17 @@ export function Home() {
         opacity: 1,
         rotateY: 0,
         duration: 1,
-        ease: 'power2.out',
+        ease: 'power4.out',
         scrollTrigger: {
           trigger: [comment01, comment02],
-          start: 'top 90%',
-          end: 'top 80%',
-          scrub: true, // Desliza conforme o scroll
+          start: 'top 95%',
+          end: 'top 65%',
+          scrub: true,
           // markers: true,
         },
       }
     )
-  })
+  }, [])
 
   return (
     <HomeContainer>
@@ -126,10 +293,10 @@ export function Home() {
 
       <TopicsContainer>
         <TopicsWrapper>
-          <h1>Tópicos abordados</h1>
+          <h1 ref={topicsRef}>Tópicos abordados</h1>
           <ul>
             <li>
-              <Topic>
+              <Topic ref={topic01Ref}>
                 <IconContainer>
                   <GlobeHemisphereWest size={32} />
                 </IconContainer>
@@ -139,7 +306,7 @@ export function Home() {
             </li>
 
             <li>
-              <Topic>
+              <Topic ref={topic02Ref}>
                 <IconContainer>
                   <Stack size={32} />
                 </IconContainer>
@@ -149,7 +316,7 @@ export function Home() {
             </li>
 
             <li>
-              <Topic>
+              <Topic ref={topic03Ref}>
                 <IconContainer>
                   <Globe size={32} />
                 </IconContainer>
@@ -162,7 +329,7 @@ export function Home() {
             </li>
 
             <li>
-              <Topic>
+              <Topic ref={topic04Ref}>
                 <IconContainer>
                   <ArrowsLeftRight size={32} />
                 </IconContainer>
@@ -175,7 +342,7 @@ export function Home() {
             </li>
 
             <li>
-              <Topic>
+              <Topic ref={topic05Ref}>
                 <IconContainer>
                   <Plug size={32} />
                 </IconContainer>
@@ -189,8 +356,8 @@ export function Home() {
 
       <PreviewContainer>
         <PreviewWrapper>
-          <img src="/images/reading-book.svg" alt="" />
-          <div>
+          <img ref={previewImgRef} src="/images/reading-book.svg" alt="" />
+          <div ref={previewDivRef}>
             <h1>Prévia Grátis</h1>
             <p>
               Este não é apenas um livro, mas um guia completo para dominar
@@ -198,41 +365,30 @@ export function Home() {
               gratuita e veja como simplificamos conceitos complexos para você.
             </p>
 
-            <Button type="button">Leia mais</Button>
+            <Button type="button">Acessar</Button>
           </div>
         </PreviewWrapper>
       </PreviewContainer>
 
       <ReadersContainer>
         <ReadersWrapper>
-          <h1>O que os leitores dizem?</h1>
+          <h1 ref={titleReadersRef}>O que os leitores dizem?</h1>
           <Readers>
             <Reader
               ref={comment01Ref}
               name="Edilaine Santos"
-              message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mi
-          purus, semper vel auctor eget, dapibus ac dui. Quisque semper justo
-          bibendum porta lobortis."
+              message="O livro explica de forma simples e objetiva, sem complicação. Recomendo para quem quer aprender redes de verdade!"
             />
             <Reader
               ref={comment02Ref}
-              name="Edilaine Santos"
-              message="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mi
-          purus, semper vel auctor eget, dapibus ac dui. Quisque semper justo
-          bibendum porta lobortis."
+              name="John Doe"
+              message="Sempre tive dificuldade com IPv4 e IPv6, mas esse eBook tornou tudo muito mais claro. Vale muito a pena!"
             />
           </Readers>
         </ReadersWrapper>
       </ReadersContainer>
 
-      {/* 
-            <NoteContainer>
-
-            </NoteContainer>
-
-            <PriceContainer>
-
-            </PriceContainer> */}
+      {/* <PriceContainer></PriceContainer> */}
     </HomeContainer>
   )
 }
