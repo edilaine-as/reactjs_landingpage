@@ -139,10 +139,23 @@ export const Readers = styled.div`
     gap: 2rem;
 `
 
-export const NoteContainer = styled.div`
-    
+export const PriceContainer = styled.div`
+    background-color: ${({ theme }) => theme.colors.primary};
 `
 
-export const PriceContainer = styled.div`
-    
+export const PriceWrapper = styled(Container)`
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    align-items: center;
+    gap: 1.5rem;
+
+    img{
+        width: 450px;
+    }
+`
+
+export const PriceContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
 `

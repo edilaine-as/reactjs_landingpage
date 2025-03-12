@@ -13,6 +13,9 @@ import {
   IntroWrapper,
   PreviewContainer,
   PreviewWrapper,
+  PriceContainer,
+  PriceContent,
+  PriceWrapper,
   Readers,
   ReadersContainer,
   ReadersWrapper,
@@ -388,7 +391,24 @@ export function Home() {
         </ReadersWrapper>
       </ReadersContainer>
 
-      {/* <PriceContainer></PriceContainer> */}
+      <PriceContainer>
+        <PriceWrapper>
+          <PriceContent>
+            <h1>Adquira agora!</h1>
+            <p>Apenas $9.99</p>
+            <ul>
+              <li>Um guia completo e direto ao ponto sobre redes</li>
+              <li>Conceitos explicados de forma simples e prática</li>
+              <li>Tenha tudo o que precisa na palma da mão!</li>
+            </ul>
+            <p>Baixe agora e domine os fundamentos de redes!</p>
+            <div>
+              <Button type="button">Quero meu eBook</Button>
+            </div>
+          </PriceContent>
+          <img src="/images/tablet.svg" alt="" />
+        </PriceWrapper>
+      </PriceContainer>
     </HomeContainer>
   )
 }
