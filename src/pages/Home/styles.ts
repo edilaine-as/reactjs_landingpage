@@ -7,12 +7,32 @@ export const Container = styled.div`
     padding: 6rem 0;
     max-width: 64rem;
 
-    @media (max-width: 768px) {
-        max-width: 44rem;
+    @media (max-width: 1280px) {
+        max-width: 54rem;
+        padding: 4rem 2rem;
+    }
+`
+
+export const Heading = styled.h1`
+    text-align: center;
+    position: relative;
+    margin-bottom: 4rem;
+
+    ::before,
+    ::after {
+    content: '';
+        position: absolute;
+        top: 50%;
+        width: 34%; /* Controla o comprimento da linha */
+        border-top: 3px solid ${({ theme }) => theme.colors.primary};
     }
 
-    @media (max-width: 1024px) {
-        max-width: 54rem;
+    ::before {
+        left: 0;
+    }
+
+    ::after {
+        right: 0;
     }
 `
 
@@ -32,35 +52,16 @@ export const IntroWrapper = styled(Container)`
             margin: 1.75rem 0;
         }
     }
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
 `
 
 export const TopicsContainer = styled.div``
 
 export const TopicsWrapper = styled(Container)`
     display: grid;
-
-    h1{
-        text-align: center;
-        position: relative;
-        margin-bottom: 4rem;
-    }
-
-    h1::before,
-    h1::after {
-    content: '';
-        position: absolute;
-        top: 50%;
-        width: 34%; /* Controla o comprimento da linha */
-        border-top: 3px solid ${({ theme }) => theme.colors.primary};
-    }
-
-    h1::before {
-        left: 0;
-    }
-
-    h1::after {
-        right: 0;
-    }
 
     ul {
         display: grid;
@@ -71,6 +72,18 @@ export const TopicsWrapper = styled(Container)`
             text-align: center;
         }
 
+    }
+
+    @media (max-width: 768px) {
+        ul {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 425px) {
+        ul{
+            grid-template-columns: 1fr;
+        }
     }
 `
 
@@ -104,39 +117,27 @@ export const PreviewWrapper = styled(Container)`
             margin: 1.75rem 0;
         }
     }
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
 `
 
 export const ReadersContainer = styled.div``
 
-export const ReadersWrapper = styled(Container)`
-    h1{
-        text-align: center;
-        position: relative;
-        margin-bottom: 4rem;
-    }
-
-    h1::before,
-    h1::after {
-    content: '';
-        position: absolute;
-        top: 50%;
-        width: 30%;
-        border-top: 3px solid ${({ theme }) => theme.colors.primary};
-    }
-
-    h1::before {
-        left: 0;
-    }
-
-    h1::after {
-        right: 0;
-    }
-`
+export const ReadersWrapper = styled(Container)``
 
 export const Readers = styled.div`
+    position: relative;
+    padding: 20px;
+    
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
 `
 
 export const PriceContainer = styled.div`
@@ -147,15 +148,50 @@ export const PriceWrapper = styled(Container)`
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     align-items: center;
+    
     gap: 1.5rem;
 
     img{
-        width: 450px;
+        grid-area: image;
+        width: 350px;
+        height: auto;
+    }
+
+    grid-template-areas: 
+    "content image";
+
+    @media (max-width: 768px) {
+        img {
+            margin: 0 left;
+        }
+
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        "image"
+        "content"; /* Em telas pequenas, coloca a imagem primeiro */
+    }
+
+    @media (max-width: 425px) {
+        img {
+            width: 200px;
+        }
     }
 `
 
 export const PriceContent = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
+    grid-area: content;
+
+    h1{
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        font-weight: bold;
+        margin-bottom: 1.75rem;
+    }
+
+    ul {
+        margin-left: 1.25rem;
+        margin-bottom: 1.75rem;
+    }
 `
