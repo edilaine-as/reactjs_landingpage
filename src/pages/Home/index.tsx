@@ -7,6 +7,7 @@ import {
   Stack,
 } from 'phosphor-react'
 import {
+  Heading,
   HomeContainer,
   IconContainer,
   IntroContainer,
@@ -296,7 +297,7 @@ export function Home() {
 
       <TopicsContainer>
         <TopicsWrapper>
-          <h1 ref={topicsRef}>Tópicos abordados</h1>
+          <Heading ref={topicsRef}>Tópicos abordados</Heading>
           <ul>
             <li>
               <Topic ref={topic01Ref}>
@@ -375,17 +376,21 @@ export function Home() {
 
       <ReadersContainer>
         <ReadersWrapper>
-          <h1 ref={titleReadersRef}>O que os leitores dizem?</h1>
+          <Heading ref={titleReadersRef}>O que os leitores dizem?</Heading>
           <Readers>
             <Reader
               ref={comment01Ref}
+              image="https://github.com/edilaine-as.png"
               name="Edilaine Santos"
               message="O livro explica de forma simples e objetiva, sem complicação. Recomendo para quem quer aprender redes de verdade!"
+              position="left"
             />
             <Reader
               ref={comment02Ref}
+              image="https://github.com/shadcn.png"
               name="John Doe"
               message="Sempre tive dificuldade com IPv4 e IPv6, mas esse eBook tornou tudo muito mais claro. Vale muito a pena!"
+              position="right"
             />
           </Readers>
         </ReadersWrapper>
