@@ -13,29 +13,6 @@ export const Container = styled.div`
     }
 `
 
-export const Heading = styled.h1`
-    text-align: center;
-    position: relative;
-    margin-bottom: 4rem;
-
-    ::before,
-    ::after {
-    content: '';
-        position: absolute;
-        top: 50%;
-        width: 34%; /* Controla o comprimento da linha */
-        border-top: 3px solid ${({ theme }) => theme.colors.primary};
-    }
-
-    ::before {
-        left: 0;
-    }
-
-    ::after {
-        right: 0;
-    }
-`
-
 export const IntroContainer = styled.div`
     background-color: ${({ theme }) => theme.colors.primary};
 `
