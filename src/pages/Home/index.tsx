@@ -7,7 +7,6 @@ import {
   Stack,
 } from 'phosphor-react'
 import {
-  Heading,
   HomeContainer,
   IconContainer,
   IntroContainer,
@@ -29,6 +28,7 @@ import { useEffect, useRef } from 'react'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Heading } from '@/components/Heading'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -52,6 +52,7 @@ export function Home() {
 
   const titleReadersRef = useRef(null)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const titleIntro = titleIntroRef.current
     const descriptionIntro = descriptionIntroRef.current
@@ -275,7 +276,22 @@ export function Home() {
         },
       }
     )
-  }, [])
+  }, [
+    titleIntroRef,
+    descriptionIntroRef,
+    buttonIntroRef,
+    topicsRef,
+    topic01Ref,
+    topic02Ref,
+    topic03Ref,
+    topic04Ref,
+    topic05Ref,
+    previewImgRef,
+    previewDivRef,
+    comment01Ref,
+    comment02Ref,
+    titleReadersRef,
+  ])
 
   return (
     <HomeContainer>
