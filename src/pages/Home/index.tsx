@@ -24,11 +24,12 @@ import {
   TopicsWrapper,
 } from './styles'
 import { Reader } from '@/components/Reader'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Heading } from '@/components/Heading'
+import { useGSAP } from '@gsap/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -38,11 +39,7 @@ export function Home() {
   const buttonIntroRef = useRef(null)
 
   const topicsRef = useRef(null)
-  const topic01Ref = useRef(null)
-  const topic02Ref = useRef(null)
-  const topic03Ref = useRef(null)
-  const topic04Ref = useRef(null)
-  const topic05Ref = useRef(null)
+  const topicsRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const previewImgRef = useRef(null)
   const previewDivRef = useRef(null)
@@ -52,32 +49,20 @@ export function Home() {
 
   const titleReadersRef = useRef(null)
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    const titleIntro = titleIntroRef.current
-    const descriptionIntro = descriptionIntroRef.current
-    const buttonIntro = buttonIntroRef.current
+  const topicAnimations = [
+    { refIndex: 0, x: -100, y: 0 }, // topic01
+    { refIndex: 1, x: 0, y: 0 }, // topic02
+    { refIndex: 2, x: 100, y: 0 }, // topic03
+    { refIndex: 3, x: -100, y: 0 }, // topic04
+    { refIndex: 4, x: 0, y: 0 }, // topic05
+  ]
 
-    const topics = topicsRef.current
-    const topic01 = topic01Ref.current
-    const topic02 = topic02Ref.current
-    const topic03 = topic03Ref.current
-    const topic04 = topic04Ref.current
-    const topic05 = topic05Ref.current
-
-    const comment01 = comment01Ref.current
-    const comment02 = comment02Ref.current
-
-    const previewImg = previewImgRef.current
-    const previewDiv = previewDivRef.current
-
-    const titleReaders = titleReadersRef.current
-
+  useGSAP(() => {
     const tl = gsap.timeline({ defaults: { duration: 1 } })
 
     // INTRO
     tl.fromTo(
-      titleIntro,
+      titleIntroRef.current,
       {
         opacity: 0,
         y: 100,
@@ -88,7 +73,7 @@ export function Home() {
       }
     )
       .fromTo(
-        descriptionIntro,
+        descriptionIntroRef.current,
         {
           opacity: 0,
           y: 100,
@@ -100,7 +85,7 @@ export function Home() {
         '-=0.75'
       )
       .fromTo(
-        buttonIntro,
+        buttonIntroRef.current,
         {
           opacity: 0,
           y: 100,
@@ -114,7 +99,7 @@ export function Home() {
 
     // TOPICS
     gsap.fromTo(
-      topics,
+      topicsRef.current,
       {
         opacity: 0,
         y: 100,
@@ -126,7 +111,7 @@ export function Home() {
         duration: 1,
         ease: 'power4.out',
         scrollTrigger: {
-          trigger: topics,
+          trigger: topicsRef.current,
           start: 'top 95%',
           end: 'top 75%',
           scrub: true,
@@ -134,49 +119,33 @@ export function Home() {
       }
     )
 
-    gsap.fromTo(
-      [topic01, topic04],
-      {
-        opacity: 0,
-        x: -100,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: topic01,
-          start: 'top 95%',
-          end: 'top 75%',
-          scrub: true,
-        },
+    // Animação individual para cada tópico
+    // biome-ignore lint/complexity/noForEach: <explanation>
+    topicAnimations.forEach(({ refIndex, x, y }) => {
+      if (topicsRefs.current[refIndex]) {
+        gsap.fromTo(
+          topicsRefs.current[refIndex],
+          { opacity: 0, x, y },
+          {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            duration: 1,
+            ease: 'power4.out',
+            scrollTrigger: {
+              trigger: topicsRefs.current[refIndex],
+              start: 'top 95%',
+              end: 'top 75%',
+              scrub: true,
+            },
+          }
+        )
       }
-    )
-
-    gsap.fromTo(
-      topic03,
-      {
-        opacity: 0,
-        x: 100,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: topic01,
-          start: 'top 95%',
-          end: 'top 75%',
-          scrub: true,
-        },
-      }
-    )
+    })
 
     // PREVIEW
     gsap.fromTo(
-      previewImg,
+      previewImgRef.current,
       {
         opacity: 0,
         x: -170,
@@ -187,7 +156,7 @@ export function Home() {
         duration: 1,
         ease: 'power4.out',
         scrollTrigger: {
-          trigger: previewDiv,
+          trigger: previewDivRef.current,
           start: 'top 95%',
           end: 'top 75%',
           scrub: true,
@@ -196,7 +165,7 @@ export function Home() {
     )
 
     gsap.fromTo(
-      previewDiv,
+      previewDivRef.current,
       {
         opacity: 0,
         x: 100,
@@ -207,27 +176,7 @@ export function Home() {
         duration: 1,
         ease: 'power4.out',
         scrollTrigger: {
-          trigger: previewDiv,
-          start: 'top 95%',
-          end: 'top 75%',
-          scrub: true,
-        },
-      }
-    )
-
-    gsap.fromTo(
-      [topic02, topic05],
-      {
-        opacity: 0,
-        y: 100,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 2,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: topic01,
+          trigger: previewDivRef.current,
           start: 'top 95%',
           end: 'top 75%',
           scrub: true,
@@ -237,7 +186,7 @@ export function Home() {
 
     // READERS
     gsap.fromTo(
-      titleReaders,
+      titleReadersRef.current,
       {
         opacity: 0,
         y: 100,
@@ -248,7 +197,7 @@ export function Home() {
         duration: 1,
         ease: 'power4.out',
         scrollTrigger: {
-          trigger: [titleReaders],
+          trigger: [titleReadersRef.current],
           start: 'top 95%',
           end: 'top 75%',
           scrub: true, // Desliza conforme o scroll
@@ -257,7 +206,7 @@ export function Home() {
     )
 
     gsap.fromTo(
-      [comment01, comment02],
+      [comment01Ref.current, comment02Ref.current],
       {
         opacity: 0,
         rotateY: 180,
@@ -268,7 +217,7 @@ export function Home() {
         duration: 1,
         ease: 'power4.out',
         scrollTrigger: {
-          trigger: [comment01, comment02],
+          trigger: [comment01Ref.current, comment02Ref.current],
           start: 'top 95%',
           end: 'top 65%',
           scrub: true,
@@ -276,22 +225,7 @@ export function Home() {
         },
       }
     )
-  }, [
-    titleIntroRef,
-    descriptionIntroRef,
-    buttonIntroRef,
-    topicsRef,
-    topic01Ref,
-    topic02Ref,
-    topic03Ref,
-    topic04Ref,
-    topic05Ref,
-    previewImgRef,
-    previewDivRef,
-    comment01Ref,
-    comment02Ref,
-    titleReadersRef,
-  ])
+  }, [])
 
   return (
     <HomeContainer>
@@ -315,61 +249,50 @@ export function Home() {
         <TopicsWrapper>
           <Heading ref={topicsRef}>Tópicos abordados</Heading>
           <ul>
-            <li>
-              <Topic ref={topic01Ref}>
-                <IconContainer>
-                  <GlobeHemisphereWest size={32} />
-                </IconContainer>
-                <h2>Origem</h2>
-                <p>Breve história do TCP/IP e sua evolução</p>
-              </Topic>
-            </li>
-
-            <li>
-              <Topic ref={topic02Ref}>
-                <IconContainer>
-                  <Stack size={32} />
-                </IconContainer>
-                <h2>Modelo OSI e TCP</h2>
-                <p>Como as camadas se organizam</p>
-              </Topic>
-            </li>
-
-            <li>
-              <Topic ref={topic03Ref}>
-                <IconContainer>
-                  <Globe size={32} />
-                </IconContainer>
-                <h2>IPv4 e IPv6</h2>
-                <p>
-                  Estrutura dos endereços, máscaras e sub-redes. NAT, DHCP e
-                  transição de IPv4 para IPv6
-                </p>
-              </Topic>
-            </li>
-
-            <li>
-              <Topic ref={topic04Ref}>
-                <IconContainer>
-                  <ArrowsLeftRight size={32} />
-                </IconContainer>
-                <h2>TCP & UDP</h2>
-                <p>
-                  Diferenças e funcionamento do Three-Way Handshake e controle
-                  de fluxo
-                </p>
-              </Topic>
-            </li>
-
-            <li>
-              <Topic ref={topic05Ref}>
-                <IconContainer>
-                  <Plug size={32} />
-                </IconContainer>
-                <h2>Identificação e Serviços</h2>
-                <p>O que são portas e como funcionam os sockets</p>
-              </Topic>
-            </li>
+            {[
+              {
+                id: '1',
+                icon: <GlobeHemisphereWest size={32} />,
+                title: 'Origem',
+                text: 'Breve história do TCP/IP e sua evolução',
+              },
+              {
+                id: '2',
+                icon: <Stack size={32} />,
+                title: 'Modelo OSI e TCP',
+                text: 'Como as camadas se organizam',
+              },
+              {
+                id: '3',
+                icon: <Globe size={32} />,
+                title: 'IPv4 e IPv6',
+                text: 'Estrutura dos endereços, máscaras e sub-redes. NAT, DHCP e transição de IPv4 para IPv6',
+              },
+              {
+                id: '4',
+                icon: <ArrowsLeftRight size={32} />,
+                title: 'IPv4 e IPv6',
+                text: 'Diferenças e funcionamento do Three-Way Handshake e controle de fluxo',
+              },
+              {
+                id: '5',
+                icon: <Plug size={32} />,
+                title: 'Identificação e Serviços',
+                text: 'O que são portas e como funcionam os sockets',
+              },
+            ].map((topic, index) => (
+              <li key={topic.id}>
+                <Topic
+                  ref={el => {
+                    topicsRefs.current[index] = el
+                  }}
+                >
+                  <IconContainer>{topic.icon}</IconContainer>
+                  <h2>{topic.title}</h2>
+                  <p>{topic.text}</p>
+                </Topic>
+              </li>
+            ))}
           </ul>
         </TopicsWrapper>
       </TopicsContainer>
