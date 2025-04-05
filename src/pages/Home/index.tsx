@@ -34,6 +34,39 @@ import { useGSAP } from '@gsap/react'
 gsap.registerPlugin(ScrollTrigger)
 
 export function Home() {
+  const topicsData = [
+    {
+      id: '1',
+      icon: <GlobeHemisphereWest size={32} />,
+      title: 'Origem',
+      text: 'Breve história do TCP/IP e sua evolução',
+    },
+    {
+      id: '2',
+      icon: <Stack size={32} />,
+      title: 'Modelo OSI e TCP',
+      text: 'Como as camadas se organizam',
+    },
+    {
+      id: '3',
+      icon: <Globe size={32} />,
+      title: 'IPv4 e IPv6',
+      text: 'Estrutura dos endereços, máscaras e sub-redes. NAT, DHCP e transição de IPv4 para IPv6',
+    },
+    {
+      id: '4',
+      icon: <ArrowsLeftRight size={32} />,
+      title: 'IPv4 e IPv6',
+      text: 'Diferenças e funcionamento do Three-Way Handshake e controle de fluxo',
+    },
+    {
+      id: '5',
+      icon: <Plug size={32} />,
+      title: 'Identificação e Serviços',
+      text: 'O que são portas e como funcionam os sockets',
+    },
+  ]
+
   const titleIntroRef = useRef(null)
   const descriptionIntroRef = useRef(null)
   const buttonIntroRef = useRef(null)
@@ -49,16 +82,19 @@ export function Home() {
 
   const titleReadersRef = useRef(null)
 
+  const priceImgRef = useRef(null)
+  const priceDivRef = useRef(null)
+
   const topicAnimations = [
-    { refIndex: 0, x: -100, y: 0 }, // topic01
-    { refIndex: 1, x: 0, y: 0 }, // topic02
-    { refIndex: 2, x: 100, y: 0 }, // topic03
-    { refIndex: 3, x: -100, y: 0 }, // topic04
-    { refIndex: 4, x: 0, y: 0 }, // topic05
+    { refIndex: 0, y: 100 }, // topic01
+    { refIndex: 1, y: 100 }, // topic02
+    { refIndex: 2, y: 100 }, // topic03
+    { refIndex: 3, y: 100 }, // topic04
+    { refIndex: 4, y: 100 }, // topic05
   ]
 
   useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { duration: 1 } })
+    const tl = gsap.timeline({ defaults: { duration: 1.3 } })
 
     // INTRO
     tl.fromTo(
@@ -103,17 +139,16 @@ export function Home() {
       {
         opacity: 0,
         y: 100,
-        transform: 'translateZ(0)',
       },
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        ease: 'power4.out',
+        duration: 2,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: topicsRef.current,
           start: 'top 95%',
-          end: 'top 75%',
+          end: 'top 45%',
           scrub: true,
         },
       }
@@ -121,21 +156,20 @@ export function Home() {
 
     // Animação individual para cada tópico
     // biome-ignore lint/complexity/noForEach: <explanation>
-    topicAnimations.forEach(({ refIndex, x, y }) => {
+    topicAnimations.forEach(({ refIndex, y }) => {
       if (topicsRefs.current[refIndex]) {
         gsap.fromTo(
           topicsRefs.current[refIndex],
-          { opacity: 0, x, y },
+          { opacity: 0, y },
           {
             opacity: 1,
-            x: 0,
             y: 0,
-            duration: 1,
-            ease: 'power4.out',
+            duration: 2,
+            ease: 'power3.out',
             scrollTrigger: {
               trigger: topicsRefs.current[refIndex],
               start: 'top 95%',
-              end: 'top 75%',
+              end: 'top 45%',
               scrub: true,
             },
           }
@@ -153,12 +187,12 @@ export function Home() {
       {
         opacity: 1,
         x: 0,
-        duration: 1,
-        ease: 'power4.out',
+        duration: 2,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: previewDivRef.current,
           start: 'top 95%',
-          end: 'top 75%',
+          end: 'top 45%',
           scrub: true,
         },
       }
@@ -173,12 +207,12 @@ export function Home() {
       {
         opacity: 1,
         x: 0,
-        duration: 1,
-        ease: 'power4.out',
+        duration: 2,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: previewDivRef.current,
           start: 'top 95%',
-          end: 'top 75%',
+          end: 'top 45%',
           scrub: true,
         },
       }
@@ -194,19 +228,19 @@ export function Home() {
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        ease: 'power4.out',
+        duration: 2,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: [titleReadersRef.current],
           start: 'top 95%',
-          end: 'top 75%',
+          end: 'top 45%',
           scrub: true, // Desliza conforme o scroll
         },
       }
     )
 
     gsap.fromTo(
-      [comment01Ref.current, comment02Ref.current],
+      comment01Ref.current,
       {
         opacity: 0,
         rotateY: 180,
@@ -214,14 +248,76 @@ export function Home() {
       {
         opacity: 1,
         rotateY: 0,
-        duration: 1,
-        ease: 'power4.out',
+        duration: 2,
+        ease: 'power3.out',
         scrollTrigger: {
-          trigger: [comment01Ref.current, comment02Ref.current],
+          trigger: comment01Ref.current,
           start: 'top 95%',
           end: 'top 65%',
           scrub: true,
           // markers: true,
+        },
+      }
+    )
+
+    gsap.fromTo(
+      comment02Ref.current,
+      {
+        opacity: 0,
+        rotateY: 180,
+      },
+      {
+        opacity: 1,
+        rotateY: 0,
+        duration: 2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: comment02Ref.current,
+          start: 'top 95%',
+          end: 'top 65%',
+          scrub: true,
+          // markers: true,
+        },
+      }
+    )
+
+    // PRICE
+    gsap.fromTo(
+      priceImgRef.current,
+      {
+        opacity: 0,
+        x: 100,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: priceDivRef.current,
+          start: 'top 95%',
+          end: 'top 45%',
+          scrub: true,
+        },
+      }
+    )
+
+    gsap.fromTo(
+      priceDivRef.current,
+      {
+        opacity: 0,
+        x: -170,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: priceDivRef.current,
+          start: 'top 95%',
+          end: 'top 45%',
+          scrub: true,
         },
       }
     )
@@ -249,38 +345,7 @@ export function Home() {
         <TopicsWrapper>
           <Heading ref={topicsRef}>Tópicos abordados</Heading>
           <ul>
-            {[
-              {
-                id: '1',
-                icon: <GlobeHemisphereWest size={32} />,
-                title: 'Origem',
-                text: 'Breve história do TCP/IP e sua evolução',
-              },
-              {
-                id: '2',
-                icon: <Stack size={32} />,
-                title: 'Modelo OSI e TCP',
-                text: 'Como as camadas se organizam',
-              },
-              {
-                id: '3',
-                icon: <Globe size={32} />,
-                title: 'IPv4 e IPv6',
-                text: 'Estrutura dos endereços, máscaras e sub-redes. NAT, DHCP e transição de IPv4 para IPv6',
-              },
-              {
-                id: '4',
-                icon: <ArrowsLeftRight size={32} />,
-                title: 'IPv4 e IPv6',
-                text: 'Diferenças e funcionamento do Three-Way Handshake e controle de fluxo',
-              },
-              {
-                id: '5',
-                icon: <Plug size={32} />,
-                title: 'Identificação e Serviços',
-                text: 'O que são portas e como funcionam os sockets',
-              },
-            ].map((topic, index) => (
+            {topicsData.map((topic, index) => (
               <li key={topic.id}>
                 <Topic
                   ref={el => {
@@ -337,7 +402,7 @@ export function Home() {
 
       <PriceContainer>
         <PriceWrapper>
-          <PriceContent>
+          <PriceContent ref={priceDivRef}>
             <h1>Adquira agora!</h1>
             <p>Apenas $9.99</p>
             <ul>
@@ -350,7 +415,7 @@ export function Home() {
               <Button type="button">Quero meu eBook</Button>
             </div>
           </PriceContent>
-          <img src="/images/tablet.svg" alt="" />
+          <img ref={priceImgRef} src="/images/tablet.svg" alt="" />
         </PriceWrapper>
       </PriceContainer>
     </HomeContainer>

@@ -39,9 +39,10 @@ export const TopicsContainer = styled.div``
 
 export const TopicsWrapper = styled(Container)`
     display: grid;
-
+    
     ul {
         display: grid;
+        gap: 1.5rem;
         grid-template-columns: repeat(3, 1fr);
         list-style: none;
 
