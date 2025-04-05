@@ -243,7 +243,10 @@ export function Home() {
       comment01Ref.current,
       {
         opacity: 0,
-        rotateY: 180,
+        rotateY: -90,
+        transformPerspective: 2500,
+        transformOrigin: 'left center',
+        backfaceVisibility: 'hidden',
       },
       {
         opacity: 1,
@@ -264,7 +267,10 @@ export function Home() {
       comment02Ref.current,
       {
         opacity: 0,
-        rotateY: 180,
+        rotateY: -90,
+        transformPerspective: 2500,
+        transformOrigin: 'left center',
+        backfaceVisibility: 'hidden',
       },
       {
         opacity: 1,
