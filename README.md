@@ -13,11 +13,11 @@ This repository contains the source code for a React-based landing page designed
 ### 📦 Installation
 1. Clone the repository
    ```
-   gh repo clone edilaine-as/reactjs_landingpage
+   gh repo clone edilaine-as/reactjs_network-ebook
    ```
 2. Navigate to the project directory
    ```
-   cd reactjs_landingpage
+   cd reactjs_network-ebook
    ```
 3. Install dependencies
    ```
@@ -45,11 +45,11 @@ Este repositório contém o código-fonte de uma landing page desenvolvida em Re
 ### 📦 Instalação
 1. Clone o repositório
    ```
-   gh repo clone edilaine-as/reactjs_landingpage
+   gh repo clone edilaine-as/reactjs_network-ebook
    ```
 2. Navegue até o projeto
    ```
-   cd reactjs_landingpage
+   cd reactjs_network-ebook
    ```
 3. Instale as dependências
    ```
