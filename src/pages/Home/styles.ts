@@ -4,7 +4,7 @@ export const HomeContainer = styled.div``
 
 export const Container = styled.div`
     margin: 0 auto;
-    padding: 6rem 0;
+    padding: 8rem 0;
     max-width: 64rem;
 
     @media (max-width: 1280px) {
@@ -107,7 +107,7 @@ export const ReadersWrapper = styled(Container)``
 
 export const Readers = styled.div`
     position: relative;
-    padding: 20px;
+    padding: 0rem 4rem;
     
     display: grid;
     grid-template-columns: repeat(2, 1fr);
