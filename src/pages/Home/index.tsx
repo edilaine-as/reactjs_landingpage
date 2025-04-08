@@ -77,10 +77,9 @@ export function Home() {
   const previewImgRef = useRef(null)
   const previewDivRef = useRef(null)
 
+  const titleReadersRef = useRef(null)
   const comment01Ref = useRef(null)
   const comment02Ref = useRef(null)
-
-  const titleReadersRef = useRef(null)
 
   const priceImgRef = useRef(null)
   const priceDivRef = useRef(null)
@@ -95,6 +94,27 @@ export function Home() {
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { duration: 1.3 } })
+
+    const t2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: topicsRef.current,
+        start: 'top 95%',
+        end: 'top 45%',
+        toggleActions: 'play none none reverse',
+        markers: false,
+      },
+    })
+
+    const t3 = gsap.timeline({
+      scrollTrigger: {
+        trigger: titleReadersRef.current,
+        start: 'top 95%',
+        end: 'top 45%',
+        toggleActions: 'play none none reverse',
+        markers: false,
+      },
+    })
+    const mm = gsap.matchMedia()
 
     // INTRO
     tl.fromTo(
@@ -134,47 +154,84 @@ export function Home() {
       )
 
     // TOPICS
-    gsap.fromTo(
-      topicsRef.current,
-      {
-        opacity: 0,
-        y: 100,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: topicsRef.current,
-          start: 'top 95%',
-          end: 'top 45%',
-          scrub: true,
+    mm.add('(max-width: 767px)', () => {
+      gsap.fromTo(
+        topicsRef.current,
+        {
+          opacity: 0,
+          y: 100,
         },
-      }
-    )
+        {
+          opacity: 1,
+          y: 0,
+          duration: 2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: topicsRef.current,
+            start: 'top 95%',
+            end: 'top 45%',
+            scrub: true,
+          },
+        }
+      )
 
-    // Animação individual para cada tópico
-    // biome-ignore lint/complexity/noForEach: <explanation>
-    topicAnimations.forEach(({ refIndex, y }) => {
-      if (topicsRefs.current[refIndex]) {
-        gsap.fromTo(
-          topicsRefs.current[refIndex],
-          { opacity: 0, y },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: topicsRefs.current[refIndex],
-              start: 'top 95%',
-              end: 'top 45%',
-              scrub: true,
+      // Animação individual para cada tópico (mobile)
+      // biome-ignore lint/complexity/noForEach: <explanation>
+      topicAnimations.forEach(({ refIndex, y }) => {
+        const el = topicsRefs.current[refIndex]
+        if (el) {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 2,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 95%',
+                end: 'top 45%',
+                scrub: true,
+              },
+            }
+          )
+        }
+      })
+    })
+
+    // A partir de 3 tópicos
+    mm.add('(min-width: 768px)', () => {
+      t2.fromTo(
+        topicsRef.current,
+        { opacity: 0, y: 100 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power3.out',
+        },
+        '+=0.1' // pequeno delay entre as animações
+      )
+
+      // Animação em sequência para cada tópico (desktop)
+      // biome-ignore lint/complexity/noForEach: <explanation>
+      topicAnimations.forEach(({ refIndex, y }) => {
+        const el = topicsRefs.current[refIndex]
+        if (el) {
+          t2.fromTo(
+            el,
+            { opacity: 0, y },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: 'power3.out',
             },
-          }
-        )
-      }
+            '+=0.1'
+          )
+        }
+      })
     })
 
     // PREVIEW
@@ -219,7 +276,7 @@ export function Home() {
     )
 
     // READERS
-    gsap.fromTo(
+    t3.fromTo(
       titleReadersRef.current,
       {
         opacity: 0,
@@ -228,64 +285,45 @@ export function Home() {
       {
         opacity: 1,
         y: 0,
-        duration: 2,
+        duration: 1,
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: [titleReadersRef.current],
-          start: 'top 95%',
-          end: 'top 45%',
-          scrub: true, // Desliza conforme o scroll
-        },
-      }
-    )
-
-    gsap.fromTo(
-      comment01Ref.current,
-      {
-        opacity: 0,
-        rotateY: -90,
-        transformPerspective: 2500,
-        transformOrigin: 'left center',
-        backfaceVisibility: 'hidden',
       },
-      {
-        opacity: 1,
-        rotateY: 0,
-        duration: 2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: comment01Ref.current,
-          start: 'top 95%',
-          end: 'top 65%',
-          scrub: true,
-          // markers: true,
-        },
-      }
+      '+=0.1'
     )
-
-    gsap.fromTo(
-      comment02Ref.current,
-      {
-        opacity: 0,
-        rotateY: -90,
-        transformPerspective: 2500,
-        transformOrigin: 'left center',
-        backfaceVisibility: 'hidden',
-      },
-      {
-        opacity: 1,
-        rotateY: 0,
-        duration: 2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: comment02Ref.current,
-          start: 'top 95%',
-          end: 'top 65%',
-          scrub: true,
-          // markers: true,
+      .fromTo(
+        comment01Ref.current,
+        {
+          opacity: 0,
+          rotateY: -90,
+          transformPerspective: 2500,
+          transformOrigin: 'left center',
+          backfaceVisibility: 'hidden',
         },
-      }
-    )
+        {
+          opacity: 1,
+          rotateY: 0,
+          duration: 1,
+          ease: 'power3.out',
+        },
+        '+=0.1'
+      )
+      .fromTo(
+        comment02Ref.current,
+        {
+          opacity: 0,
+          rotateY: -90,
+          transformPerspective: 2500,
+          transformOrigin: 'left center',
+          backfaceVisibility: 'hidden',
+        },
+        {
+          opacity: 1,
+          rotateY: 0,
+          duration: 1,
+          ease: 'power3.out',
+        },
+        '+=0.1'
+      )
 
     // PRICE
     gsap.fromTo(
